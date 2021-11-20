@@ -20,7 +20,7 @@ const TrendingCard = ({item, index}) => {
         </Svg>
       </View>
 
-      <Image source={item.img} resizeMode="cover" style={styles.image} />
+      <Image style={styles.image} source={item.img} resizeMode="cover" />
     </TouchableOpacity>
   );
 };
@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
     width: '95%',
     right: 0,
     height: '100%',
-    elevation: 4,
   },
   coloredBlock: {
     flex: 1,
@@ -54,15 +53,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 5,
     padding: 10,
-
-    shadowColor: '#000000',
-    shadowOffset: {
-      width: 0,
-      height: 5,
-    },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
   },
 
   textBlock: {
@@ -85,7 +75,6 @@ const styles = StyleSheet.create({
     top: 50,
     right: 7,
     transform: [{rotate: '-15deg'}],
-    elevation: 5,
   },
 });
 
