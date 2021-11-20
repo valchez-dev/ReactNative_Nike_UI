@@ -97,7 +97,7 @@ const Home = () => {
 
   const [modal, setModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState('');
+ 
 
   return (
     <View style={styles.container}>
@@ -160,7 +160,7 @@ const Home = () => {
             onPress={()=>{
               setModal(!modal)
               setSelectedProduct(null)
-              setSelectedSize('')
+            
             }}
             item={selectedProduct} 
              />

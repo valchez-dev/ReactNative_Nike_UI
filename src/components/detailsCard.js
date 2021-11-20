@@ -1,16 +1,8 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Image,
-  Text,
-  TouchableOpacity,
-  View,
-  FlatList,
-} from 'react-native';
-import {Svg, Polygon} from 'react-native-svg';
+import React, {useState} from 'react';
+import {StyleSheet, Image, Text, TouchableOpacity, View} from 'react-native';
 
 const DetailsCard = ({item, onPress}) => {
-
+  const [selectedSize, setSelectedSize] = useState('');
 
   return (
     <View style={styles.card}>
@@ -22,11 +14,26 @@ const DetailsCard = ({item, onPress}) => {
 
         <View style={styles.sizeBlock}>
           <Text style={styles.sizeText}>Select Size</Text>
+
+          {item.sizes.map((size, index) => {
+            return (
+              <TouchableOpacity
+                key={index}
+                onPress={() => setSelectedSize(size)}
+                style={[
+                  styles.sizeCard,
+                  {
+                    backgroundColor:
+                      item.sizes[index] == selectedSize ? '#ffffff60' : null,
+                  },
+                ]}>
+                <Text style={styles.sizeCard_text}>{size}</Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
 
-        <TouchableOpacity 
-        onPress={onPress}
-        style={styles.button}>
+        <TouchableOpacity onPress={onPress} style={styles.button}>
           <Text style={styles.button_text}>Add To Cart</Text>
         </TouchableOpacity>
       </View>
@@ -42,7 +49,7 @@ const styles = StyleSheet.create({
     height: '60%',
     width: '80%',
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems: 'center',
   },
   coloredBlock: {
     flex: 1,
@@ -52,7 +59,7 @@ const styles = StyleSheet.create({
   },
   textBlock: {
     flexDirection: 'column',
-    height: '30%', 
+    height: '30%',
   },
   name: {
     padding: 5,
@@ -72,14 +79,16 @@ const styles = StyleSheet.create({
   },
   image: {
     position: 'absolute',
-    width: '99%',
-    height: 160,
+    width: '98%',
+    height: 150,
     top: 10,
-    right: 5,
+    right: 15,
     transform: [{rotate: '-15deg'}],
   },
   sizeBlock: {
+    flexWrap: 'wrap',
     flexDirection: 'row',
+    width: '100%',
   },
   sizeText: {
     color: '#ffffff',
@@ -95,12 +104,29 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor:'rgba(0,0,0,0.3)'
+    backgroundColor: 'rgba(0,0,0,0.3)',
   },
   button_text: {
     fontSize: 28,
     fontWeight: 'bold',
     color: '#ffffff',
+  },
+  sizeCard: {
+    borderColor: '#ffffff',
+    borderRadius: 5,
+    borderWidth: 2,
+    width: 35,
+    height: 35,
+    marginLeft: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  sizeCard_text: {
+    textAlign: 'center',
+    color: '#ffffff',
+    width: '100%',
+    fontSize: 12,
+    fontWeight: 'bold',
   },
 });
 
