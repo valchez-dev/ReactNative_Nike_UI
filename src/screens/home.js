@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
-import {FlatList, StyleSheet, Text, View} from 'react-native';
+import {FlatList, StyleSheet, Modal, Text, View} from 'react-native';
 import TrendingCard from '../components/trendingCard';
+import DetailsCard from '../components/detailsCard';
 import ProductCard from '../components/productCard';
 
 const TrendingThree = [
@@ -94,6 +95,10 @@ const Home = () => {
   const [trending, setTrending] = useState(TrendingThree);
   const [products, setProducts] = useState(ProductsList);
 
+  const [modal, setModal] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [selectedSize, setSelectedSize] = useState('');
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>TRENDING</Text>
@@ -106,7 +111,14 @@ const Home = () => {
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           renderItem={({item, index}) => (
-            <TrendingCard item={item} index={index} />
+            <TrendingCard
+              onPress={() => {
+                setSelectedProduct(item);
+                setModal(!modal);
+              }}
+              item={item}
+              index={index}
+            />
           )}
         />
       </View>
@@ -114,20 +126,47 @@ const Home = () => {
       {/*Other products*/}
       <View style={styles.productsBlock}>
         <View style={styles.sideTitle}>
-          <Text style={styles.sideTitle_text}>TOP   RATED</Text>
+          <Text style={styles.sideTitle_text}>TOP RATED</Text>
         </View>
         <View style={styles.productListArea}>
-          <FlatList 
+          <FlatList
             keyExtractor={item => item.id.toString()}
             data={products}
             horizontal={false}
             showsVerticalScrollIndicator={false}
-            renderItem={ ({item, index}) => (
-              <ProductCard item={item} index={index} />
+            renderItem={({item, index}) => (
+              <ProductCard
+                onPress={() => {
+                  setSelectedProduct(item);
+                  setModal(!modal);
+                }}
+                item={item}
+                index={index}
+              />
             )}
           />
         </View>
       </View>
+
+      {/* Detail page modal */}
+      {selectedProduct && (
+        <Modal
+          visible={modal}
+          transparent={true}
+          animationType="slide"
+          onRequestClose={() => setModal(!modal)}>
+          <View style={styles.modalWrapper}>
+            <DetailsCard 
+            onPress={()=>{
+              setModal(!modal)
+              setSelectedProduct(null)
+              setSelectedSize('')
+            }}
+            item={selectedProduct} 
+             />
+          </View>
+        </Modal>
+      )}
     </View>
   );
 };
@@ -158,26 +197,33 @@ const styles = StyleSheet.create({
   },
   sideTitle: {
     flex: 0.5,
-    padding:1,
-    margin:1,
-    width:'100%',
-    height:'100%',
-    alignItems:'center',
-    justifyContent:'center'
+    padding: 1,
+    margin: 1,
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sideTitle_text: {
-    width:300,
-    textAlign:'center',
-    fontSize:20,
-    fontWeight:'500',
-    color:'#b2aeae',
-    transform:[{
-      rotate:'270deg'
-    }],
-
+    width: 300,
+    textAlign: 'center',
+    fontSize: 20,
+    fontWeight: '500',
+    color: '#b2aeae',
+    transform: [
+      {
+        rotate: '270deg',
+      },
+    ],
   },
   productListArea: {
     flex: 3,
+  },
+  modalWrapper: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#00000099',
   },
 });
 

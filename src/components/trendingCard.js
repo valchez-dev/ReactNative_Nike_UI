@@ -2,9 +2,11 @@ import React from 'react';
 import {StyleSheet, Image, Text, TouchableOpacity, View} from 'react-native';
 import {Svg, Polygon} from 'react-native-svg';
 
-const TrendingCard = ({item, index}) => {
+const TrendingCard = ({item, onPress ,index}) => {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity 
+    onPress={onPress}
+    style={styles.card}>
       <Text style={styles.type}>{item.type}</Text>
 
       <View style={[styles.coloredBlock, {backgroundColor: item.bgColor}]}>
