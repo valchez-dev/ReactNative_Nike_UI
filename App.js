@@ -16,7 +16,7 @@ const App = () => {
         name="Home" 
         component={Home} 
         options={{
-          title: "SHOE SELECTOR",
+          title: "NIKE WORLD",
           headerTitleAlign:'center',
           headerTintColor:'#b2aeae',
           headerLeft: ({onPressMenu}) => (
